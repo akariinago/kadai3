@@ -97,7 +97,7 @@ void read_pagefile(char *filename){ /*ファイルからページ情報を読み
 
 int main(int argc, char *argv[]){
     
-    int id1=-1; //入力した単語のid
+    int id1; //入力した単語のid
     int x=0; //入力した単語のリンク数
     int y=-1;//入力した単語のリンクの最初の配列数
     int random;//乱数
@@ -108,21 +108,22 @@ int main(int argc, char *argv[]){
     }
     n=-1;    //table1[0]からデータを入れるために-1に初期化
     read_linkfile("links.txt"); //リンク情報を読み込む
-    m=-1;   //table2[0]からデータを入れるために-1に初期化
-    read_pagefile("pages.txt"); //ページ情報を読み込む
-    //printf("データ読み込み終わり\n");
  
     for(i=0; i<SIZE2;i++){
         if(strcmp(table2[i].word,argv[1])==0){    //入力された単語のidを見つける
             id1 = table2[i].id;
             break;
         }
+        else if(i==SIZE2-1){
+            printf("その単語はwikipediaにありません\n");
+            exit(1);
+        }
     }
     
-    if(id1==-1){
-        printf("その単語はwikipediaにありません\n");
-        exit(1);
-    }
+    m=-1;   //table2[0]からデータを入れるために-1に初期化
+    read_pagefile("pages.txt"); //ページ情報を読み込む
+    //printf("データ読み込み終わり\n");
+    
     printf("%s → ", table2[id1].word);
     for(i=0; i<atoi(argv[2]); i++){
         j=0;
