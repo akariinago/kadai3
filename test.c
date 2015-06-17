@@ -98,10 +98,10 @@ void read_pagefile(char *filename){ /*ファイルからページ情報を読み
 int main(int argc, char *argv[]){
     
     int id1; //入力した単語のid
-    int x=0; //入力した単語のリンク数
-    int y=-1;//入力した単語のリンクの最初の配列数
+    int link_num; //入力した単語のリンク数
+    int first_array_num;//入力した単語のリンクの最初の配列数
     int random;//乱数
-    int i=0,j=0;
+    int i,j;
     if(argc!=3){
         printf("単語と数を入力してください\n");
         exit(1);
@@ -126,27 +126,25 @@ int main(int argc, char *argv[]){
     printf("%s → ", table2[id1].word);
     
     for(i=0; i<atoi(argv[2]); i++){
-        j=0;
-        x=0;
-        while(table1[j].id<=id1+1) {
+        link_num=0; //リンク数を初期化
+        for(j=0;table1[j].id<=id1+1;j++) {
             if(table1[j].id==id1){
-                x++;            //単語のリンク数を求める
-                if(x==1){
-                    y=j;        //リンクの最初の行を求める
+                link_num++;            //単語のリンク数を求める
+                if(link_num==1){
+                    first_array_num=j;        //リンクの最初の行を求める
                 }
             }
-            else if(table1[j].id==id1&&x==0){
+            else if(table1[j].id==id1&&link_num==0){
                 printf("%sのリンクはありません\n",table2[id1].word);
                 exit(1);
             }
-            j++;
         
         }
         
         srand((unsigned)time(NULL));    //乱数を発生させる
-        random=y+rand()%x;
-        j=0;
-        while(j<SIZE2){                 //単語のリンクをランダムに出力する
+        random=first_array_num+rand()%link_num;
+
+        for(j=0;j<SIZE2;j++){                 //単語のリンクをランダムに出力する
             if(table2[j].id==table1[random].linked){
                 if(i!=atoi(argv[2])-1){
                     printf("%s → ", table2[j].word);
@@ -160,7 +158,6 @@ int main(int argc, char *argv[]){
                 }
                 
             }
-            j++;
             
         }
         
