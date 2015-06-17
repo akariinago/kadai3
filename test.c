@@ -106,8 +106,11 @@ int main(int argc, char *argv[]){
         printf("単語と数を入力してください\n");
         exit(1);
     }
+    n=-1;    //table1[0]からデータを入れるために-1に初期化
     read_linkfile("links.txt"); //リンク情報を読み込む
- 
+    m=-1;   //table2[0]からデータを入れるために-1に初期化
+    read_pagefile("pages.txt"); //ページ情報を読み込む
+    printf("データ読み込み終わり\n");
     for(i=0; i<SIZE2;i++){
         if(strcmp(table2[i].word,argv[1])==0){    //入力された単語のidを見つける
             id1 = table2[i].id;
@@ -118,9 +121,7 @@ int main(int argc, char *argv[]){
             exit(1);
         }
     }
-    
-    read_pagefile("pages.txt"); //ページ情報を読み込む
-    //printf("データ読み込み終わり\n");
+
     
     printf("%s → ", table2[id1].word);
     
