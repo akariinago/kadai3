@@ -106,7 +106,6 @@ int main(int argc, char *argv[]){
         printf("単語と数を入力してください\n");
         exit(1);
     }
-    n=-1;    //table1[0]からデータを入れるために-1に初期化
     read_linkfile("links.txt"); //リンク情報を読み込む
  
     for(i=0; i<SIZE2;i++){
@@ -120,28 +119,27 @@ int main(int argc, char *argv[]){
         }
     }
     
-    m=-1;   //table2[0]からデータを入れるために-1に初期化
     read_pagefile("pages.txt"); //ページ情報を読み込む
     //printf("データ読み込み終わり\n");
     
     printf("%s → ", table2[id1].word);
+    
     for(i=0; i<atoi(argv[2]); i++){
         j=0;
         x=0;
-        y=-1;
-        while(table1[j].id<id1+1) {
+        while(table1[j].id<=id1+1) {
             if(table1[j].id==id1){
                 x++;            //単語のリンク数を求める
-                if(y==-1){
+                if(x==1){
                     y=j;        //リンクの最初の行を求める
                 }
             }
+            else if(table1[j].id==id1&&x==0){
+                printf("%sのリンクはありません\n",table2[id1].word);
+                exit(1);
+            }
             j++;
         
-        }
-        if(x==0){
-            printf("%sのリンクはありません\n",table2[id1].word);
-            exit(1);
         }
         
         srand((unsigned)time(NULL));    //乱数を発生させる
