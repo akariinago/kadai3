@@ -102,10 +102,7 @@ int main(int argc, char *argv[]){
     int y=-1;//入力した単語のリンクの最初の配列数
     int random;//乱数
     int i=0,j=0;
-    if(argc==3){
-        
-    }
-    else{
+    if(argc!=3){
         printf("単語と数を入力してください\n");
         exit(1);
     }
